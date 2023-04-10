@@ -3,6 +3,8 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  Modal,
+  Pressable,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -16,11 +18,15 @@ import { StyleSheet } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useRef, useState } from "react";
+import { Platform } from "react-native";
 
 export default function AudioPage() {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentAudios, setCurrentAudios] = useState();
+  const [isModalView, setIsModalView] = useState(false);
   const renderItem = ({ item, index }) => {
+    console.log(activeSlide)
     return (
       <TouchableOpacity
         style={{
@@ -55,21 +61,157 @@ export default function AudioPage() {
       id: 1,
       name: "Пилот",
       description: "Музыка для глубоких медитаций",
+      audios: [
+        {
+          name: "Песня 1",
+          description: "Первая категория Песня 1",
+        },
+        {
+          name: "Песня 2",
+          description: "Первая категория Песня 2",
+        },
+        {
+          name: "Песня 3",
+          description: "Первая категория Песня 3",
+        },
+        {
+          name: "Песня 4",
+          description: "Первая категория Песня 4",
+        },
+        {
+          name: "Песня 5",
+          description: "Первая категория Песня 5",
+        },
+        {
+          name: "Песня 6",
+          description: "Первая категория Песня 6",
+        },
+        {
+          name: "Песня 7",
+          description: "Первая категория Песня 7",
+        },
+        {
+          name: "Песня 8",
+          description: "Первая категория Песня 8",
+        },
+      ],
     },
     {
       id: 2,
       name: "Пилот 2",
       description: "Музыка для глубоких медитаций",
+      audios: [
+        {
+          name: "Песня 1",
+          description: "Вторая категория Песня 1",
+        },
+        {
+          name: "Песня 2",
+          description: "Вторая категория Песня 2",
+        },
+        {
+          name: "Песня 3",
+          description: "Вторая категория Песня 3",
+        },
+        {
+          name: "Песня 4",
+          description: "Вторая категория Песня 4",
+        },
+        {
+          name: "Песня 5",
+          description: "Вторая категория Песня 5",
+        },
+        {
+          name: "Песня 6",
+          description: "Вторая категория Песня 6",
+        },
+        {
+          name: "Песня 7",
+          description: "Вторая категория Песня 7",
+        },
+        {
+          name: "Песня 8",
+          description: "Вторая категория Песня 8",
+        },
+      ],
     },
     {
       id: 3,
       name: "Пилот 3",
       description: "Музыка для глубоких медитаций",
+      audios: [
+        {
+          name: "Песня 1",
+          description: "Третья категория Песня 1",
+        },
+        {
+          name: "Песня 2",
+          description: "Третья категория Песня 2",
+        },
+        {
+          name: "Песня 3",
+          description: "Третья категория Песня 3",
+        },
+        {
+          name: "Песня 4",
+          description: "Третья категория Песня 4",
+        },
+        {
+          name: "Песня 5",
+          description: "Третья категория Песня 5",
+        },
+        {
+          name: "Песня 6",
+          description: "Третья категория Песня 6",
+        },
+        {
+          name: "Песня 7",
+          description: "Третья категория Песня 7",
+        },
+        {
+          name: "Песня 8",
+          description: "Третья категория Песня 8",
+        },
+      ],
     },
     {
       id: 4,
       name: "Пилот 4",
       description: "Музыка для глубоких медитаций",
+      audios: [
+        {
+          name: "Песня 1",
+          description: "Четвёртая категория Песня 1",
+        },
+        {
+          name: "Песня 2",
+          description: "Четвёртая категория Песня 2",
+        },
+        {
+          name: "Песня 3",
+          description: "Четвёртая категория Песня 3",
+        },
+        {
+          name: "Песня 4",
+          description: "Четвёртая категория Песня 4",
+        },
+        {
+          name: "Песня 5",
+          description: "Четвёртая категория Песня 5",
+        },
+        {
+          name: "Песня 6",
+          description: "Четвёртая категория Песня 6",
+        },
+        {
+          name: "Песня 7",
+          description: "Четвёртая категория Песня 7",
+        },
+        {
+          name: "Песня 8",
+          description: "Четвёртая категория Песня 8",
+        },
+      ],
     },
     {
       id: 5,
@@ -77,130 +219,165 @@ export default function AudioPage() {
       description: "Музыка для глубоких медитаций",
     },
   ];
+  console.log(audio.length)
   const isCarousel = useRef(null);
   const windowSize = Dimensions.get("window").width;
   useEffect(() => {
     isCarousel.current.snapToItem(activeSlide, (animated = true));
+    setCurrentAudios(audio[activeSlide].audios);
   }, [activeSlide]);
   return (
-    <Layout>
-      <SafeAreaView>
-        <View style={{ paddingHorizontal: 30 }}>
-          <Title>Рекомендация </Title>
-          <Text style={s(theme).listenNow}>718 человек слушают сейчас </Text>
-        </View>
-        {theme === "dark" ? (
-          <ImageBackground
-            style={s(theme).stars}
-            source={
-              theme === "dark" ? require("../assets/stars.png") : undefined
-            }
-          >
-            <Carousel
-              firstItem={1}
-              style={s(theme).slider}
-              showSpinner={true}
-              spinnerColor={
-                theme === "dark"
-                  ? "rgba(255, 255, 255, 0.4)"
-                  : "rgba(0, 0, 0, 0.25)"
-              }
-              ref={isCarousel}
-              data={audio}
-              renderItem={renderItem}
-              sliderWidth={windowSize}
-              sliderHeight={(height / 100) * 25}
-              itemWidth={(height / 100) * 25}
-              windowSize={windowSize}
-              inactiveSlideScale={0.75}
-              inactiveSlideOpacity={0.5}
-              onSnapToItem={(e) => setActiveSlide(e)}
-              useScrollView={true}
-              contentContainerCustomStyle={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
-          </ImageBackground>
-        ) : (
-          <View style={s(theme).stars}>
-            <Carousel
-              firstItem={1}
-              style={s(theme).slider}
-              showSpinner={true}
-              spinnerColor={
-                theme === "dark"
-                  ? "rgba(255, 255, 255, 0.4)"
-                  : "rgba(0, 0, 0, 0.25)"
-              }
-              ref={isCarousel}
-              data={audio}
-              renderItem={renderItem}
-              sliderWidth={windowSize}
-              sliderHeight={(height / 100) * 25}
-              itemWidth={(height / 100) * 25}
-              windowSize={windowSize}
-              inactiveSlideScale={0.75}
-              inactiveSlideOpacity={0.5}
-              onSnapToItem={(e) => setActiveSlide(e)}
-              useScrollView={true}
-              contentContainerCustomStyle={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
+    <>
+      <Layout>
+        <SafeAreaView>
+          <View style={{ paddingHorizontal: 30 }}>
+            <Title>Рекомендация </Title>
+            <Text style={s(theme).listenNow}>718 человек слушают сейчас </Text>
           </View>
-        )}
-        <View style={s(theme).musicContainer}>
-          <View>
-            <Text style={s(theme).musicName}>{audio[activeSlide].name}</Text>
-            <Text style={s(theme).musicDescription}>
-              {audio[activeSlide].description}
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Image source={require("../assets/allMusic.png")} />
-          </TouchableOpacity>
-        </View>
-        <View style={s(theme, height).settingsContainer}>
-          <Image
-            source={
-              theme === "dark"
-                ? require(`../assets/back.png`)
-                : require("../assets/LightBack.png")
-            }
-          />
-          <TouchableOpacity
-            style={s(theme).stop}
-            onPress={() => setIsPlaying(!isPlaying)}
-          >
+          {theme === "dark" ? (
             <ImageBackground
-              style={s(theme, height).stop}
+              style={s(theme).stars}
               source={
-                theme === "light"
-                  ? require("../assets/YellowStop.png")
-                  : require("../assets/DarkStopButton.png")
+                theme === "dark" ? require("../assets/stars.png") : undefined
               }
             >
-              <Image
-                source={
-                  isPlaying
-                    ? require("../assets/Pouse.png")
-                    : require("../assets/PlayButton.png")
+              <Carousel
+                firstItem={1}
+                style={s(theme).slider}
+                showSpinner={true}
+                spinnerColor={
+                  theme === "dark"
+                    ? "rgba(255, 255, 255, 0.4)"
+                    : "rgba(0, 0, 0, 0.25)"
                 }
+                ref={isCarousel}
+                data={audio}
+                renderItem={renderItem}
+                sliderWidth={windowSize}
+                sliderHeight={(height / 100) * 25}
+                itemWidth={(height / 100) * 25}
+                windowSize={windowSize}
+                inactiveSlideScale={0.75}
+                inactiveSlideOpacity={0.5}
+                onSnapToItem={(e) => setActiveSlide(e)}
+                useScrollView={true}
+                contentContainerCustomStyle={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               />
             </ImageBackground>
-          </TouchableOpacity>
-          <Image
-            source={
-              theme === "dark"
-                ? require("../assets/next.png")
-                : require("../assets/LightNext.png")
-            }
-          />
-        </View>
-      </SafeAreaView>
-    </Layout>
+          ) : (
+            <View style={s(theme).stars}>
+              <Carousel
+                firstItem={1}
+                style={s(theme).slider}
+                showSpinner={true}
+                spinnerColor={
+                  theme === "dark"
+                    ? "rgba(255, 255, 255, 0.4)"
+                    : "rgba(0, 0, 0, 0.25)"
+                }
+                ref={isCarousel}
+                data={audio}
+                renderItem={renderItem}
+                sliderWidth={windowSize}
+                sliderHeight={(height / 100) * 25}
+                itemWidth={(height / 100) * 25}
+                windowSize={windowSize}
+                inactiveSlideScale={0.75}
+                inactiveSlideOpacity={0.5}
+                onSnapToItem={(e) => setActiveSlide(e)}
+                useScrollView={true}
+                contentContainerCustomStyle={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+            </View>
+          )}
+          <View style={s(theme).musicContainer}>
+            <View>
+              <Text style={s(theme).musicName}>{audio[activeSlide].name}</Text>
+              <Text style={s(theme).musicDescription}>
+                {audio[activeSlide].description}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={() => setIsModalView(true)}>
+              <Image source={require("../assets/allMusic.png")} />
+            </TouchableOpacity>
+          </View>
+          <View style={s(theme, height).settingsContainer}>
+            <TouchableOpacity onPress={() => setActiveSlide(prev => prev > 0 ? prev - 1 : audio.length - 1)}>
+            <Image
+              source={
+                theme === "dark"
+                  ? require(`../assets/back.png`)
+                  : require("../assets/LightBack.png")
+              }
+            />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={s(theme).stop}
+              onPress={() => setIsPlaying(!isPlaying)}
+            >
+              <ImageBackground
+                style={s(theme, height).stop}
+                source={
+                  theme === "light"
+                    ? require("../assets/YellowStop.png")
+                    : require("../assets/DarkStopButton.png")
+                }
+              >
+                <Image
+                  source={
+                    isPlaying
+                      ? require("../assets/Pouse.png")
+                      : require("../assets/PlayButton.png")
+                  }
+                />
+              </ImageBackground>
+            </TouchableOpacity>
+           <TouchableOpacity onPress={() => setActiveSlide(prev => prev < audio.length -1 ? prev + 1 : 0)} >
+           <Image
+              source={
+                theme === "dark"
+                  ? require("../assets/next.png")
+                  : require("../assets/LightNext.png")
+              }
+            />
+           </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Layout>
+      <Modal
+        onRequestClose={() => setIsModalView(false)}
+        animationType={"slide"}
+        presentationStyle={"formSheet"}
+        visible={isModalView}
+      >
+        <Layout without={true}>
+          {Platform.OS=== 'android' && (
+            <Pressable onPress={() => setIsModalView(false)} style={s(theme).close}>
+                <Text style={s(theme).closeText}>
+                  Закрыть
+                </Text>
+            </Pressable>
+          )} 
+          <View style={s(theme).audioModal}>
+            {currentAudios?.map((info) => (
+              <View style={s(theme).audio} key={info.description}>
+                <Image source={theme === 'light' ? require("../assets/LightAudioCircle.png") : require("../assets/DarkAudioCircle.png")} />
+                <View style={s(theme).audioInfo}>
+                  <Text style={s(theme).AudioDescription}>{info.description}</Text>
+                  <Text style={s(theme).AudioName}>{info.name}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </Layout>
+      </Modal>
+    </>
   );
 }
 const height = Dimensions.get("screen").height;
@@ -274,4 +451,37 @@ const s = (theme) =>
       borderRadius: 999,
       marginHorizontal: 87,
     },
+    audioModal: {
+      paddingHorizontal: 50,
+      marginTop: 50,
+    },
+    audio : {
+      flexDirection : 'row',
+      marginBottom : 20,
+      alignItems : 'center',
+      
+    },
+    audioInfo : {
+      marginLeft : 30,
+
+    },
+    AudioDescription : {
+      fontFamily : 'Gilroy-400',
+      color : '#B3B3B3',
+
+    },
+    AudioName : {
+      fontFamily : 'Gilroy-700',
+      color : '#B3B3B3',
+      fontSize : 14,
+      marginTop : 6,
+    },
+    close : {
+      position : 'absolute',
+      top : 10,
+      left : 10
+    },
+    closeText : {
+      color : theme === 'light' ? 'black' : 'white'
+    }
   });

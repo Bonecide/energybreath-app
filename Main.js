@@ -61,20 +61,21 @@ const isAuth = useSelector((s) => s.user.isAuth)
         tabBarShowLabel : false,
         headerShown : false,
         tabBarStyle : { 
-            paddingTop : 20,
-            paddingBottom : 20,
+            paddingTop : 5,
+            paddingBottom : 5,
             borderTopLeftRadius : theme === 'dark' ? 0 : 20,
             borderTopRightRadius : theme === 'dark' ? 0 : 20,
             backgroundColor : theme === 'dark' ? '#1D093B' : 'white',
             borderWidth  : theme === 'dark' ? 0 : 1,
             borderTopWidth : theme === 'dark' ? 0 : 1,
+            borderBottomWidth : 0,
             borderColor : '#E0E0E0',
             elevation : theme === 'light' ? 2 : 0,
             shadowColor :  theme === 'light' && 'rgba(0, 0, 0, 0.25)',
             shadowOffset : {height : 0, width : 0},
             shadowOpacity : theme ==='light' ? 0.7 : 0,
             shadowRadius : 6,
-            height : 80,
+            height : 66,
          },
 
       }}>
@@ -82,7 +83,7 @@ const isAuth = useSelector((s) => s.user.isAuth)
           tabBarIcon : ({focused}) => {
             return(
             <View style={s(theme,focused).container}>
-              {theme === 'dark'  ? (!focused ? <Image source={require('./assets/darkMain.png')}/> : <Image source={require('./assets/commonMain.png')}/>) : <Image source={require('./assets/LightMain.png')}/> }
+              {theme === 'dark'  ? (!focused ? <Image  style={s(theme,focused).image}  source={require('./assets/darkMain.png')}/> : <Image  style={s(theme,focused).image} source={require('./assets/commonMain.png')}/>) : <Image style={s(theme,focused).image}  source={require('./assets/LightMain.png')}/> }
             </View>
             )
           }
@@ -91,7 +92,7 @@ const isAuth = useSelector((s) => s.user.isAuth)
           tabBarIcon : ({focused}) => {
             return(
             <View style={s(theme,focused).container}>
-              {theme === 'dark'  ? (!focused ? <Image source={require('./assets/darkVideo.png')}/> : <Image source={require('./assets/commonVideo.png')}/>) : <Image source={require('./assets/LightVideo.png')}/> }
+              {theme === 'dark'  ? (!focused ? <Image style={s(theme,focused).image}  source={require('./assets/darkVideo.png')}/> : <Image style={s(theme,focused).image}  source={require('./assets/commonVideo.png')}/>) : <Image style={s(theme,focused).image}  source={require('./assets/LightVideo.png')}/> }
             </View>
             )
           }
@@ -100,7 +101,7 @@ const isAuth = useSelector((s) => s.user.isAuth)
           tabBarIcon : ({focused}) => {
             return(
             <View style={s(theme,focused).container}>
-              {theme === 'dark'  ? (!focused ? <Image source={require('./assets/DarkAudio.png')}/> : <Image source={require('./assets/commonAudio.png')}/>) : <Image source={require('./assets/LightAudio.png')}/> }
+              {theme === 'dark'  ? (!focused ? <Image style={s(theme,focused).image}  source={require('./assets/DarkAudio.png')}/> : <Image style={s(theme,focused).image}  source={require('./assets/commonAudio.png')}/>) : <Image style={s(theme,focused).image}  source={require('./assets/LightAudio.png')}/> }
             </View>
             )
           }
@@ -109,7 +110,7 @@ const isAuth = useSelector((s) => s.user.isAuth)
           tabBarIcon : ({focused}) => {
             return(
             <View style={s(theme,focused).container}>
-              {theme === 'dark'  ? (!focused ? <Image source={require('./assets/DarkCourses.png')}/> : <Image source={require('./assets/commonCourses.png')}/>) : <Image source={require('./assets/LightCourses.png')}/> }
+              {theme === 'dark'  ? (!focused ? <Image style={s(theme,focused).image}  source={require('./assets/DarkCourses.png')}/> : <Image style={s(theme,focused).image}  source={require('./assets/commonCourses.png')}/>) : <Image style={s(theme,focused).image}  source={require('./assets/LightCourses.png')}/> }
             </View>
             )
           }
@@ -118,7 +119,7 @@ const isAuth = useSelector((s) => s.user.isAuth)
           tabBarIcon : ({focused}) => {
             return(
             <View style={s(theme,focused).container}>
-              {theme === 'dark'  ? (!focused ? <Image source={require('./assets/DarkUser.png')}/> : <Image source={require('./assets/commonUser.png')}/>) : <Image source={require('./assets/LightUser.png')}/> }
+              {theme === 'dark'  ? (!focused ? <Image  style={s(theme,focused).image} source={require('./assets/DarkUser.png')}/> : <Image style={s(theme,focused).image}  source={require('./assets/commonUser.png')}/>) : <Image style={s(theme,focused).image}  source={require('./assets/LightUser.png')}/> }
             </View>
             )
           }
@@ -130,12 +131,16 @@ const isAuth = useSelector((s) => s.user.isAuth)
 
 const s = (theme,isActive) => StyleSheet.create({
   container : {
-    width : 62,
-    height : 62,
+    width : 52,
+    height : 52,
     justifyContent : 'center',
     alignItems : 'center',
     borderRadius : 100,
     backgroundColor : isActive && theme ==='light' ? '#E0E0E0' : 'transparent',
 
+},
+image : {
+  width : '65%',
+  height : '65%',
 }
 });

@@ -18,7 +18,7 @@ export default function MainPage() {
   };
   return (
     <Layout>
-      <View style={{ flex: 1,padding : 30,paddingTop : 0 }}>
+      <View style={{ flex: 1,paddingLeft : 30,paddingTop : 0 }}>
         <News />
         <Music />
         <Video />
